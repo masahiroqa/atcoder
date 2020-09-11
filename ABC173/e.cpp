@@ -34,27 +34,6 @@ typedef unsigned long long ull;
 
 int main(void)
 {
-  int N;
-  cin >> N;
-  char c[N];
-  int r_pos=-1, r_num=0;
-  int w_pos=-1;
-  for(int i=0;i<N;i++){
-    cin >> c[i];
-    if(c[i] == 'R'){
-      r_pos=i;
-      r_num++;
-    }
-    else if(c[i] == 'W')w_pos=i;
-    // printf("%c, %d %d\n", c[i], r_pos, w_pos);
-  }
-  if(r_pos == -1 or w_pos == -1)printf("%d\n", 0);
-  else{
-    int cnt = 0;
-    for(int i=r_num;i < N;i++){
-      if(c[i] == 'R')cnt++;
-    }
-    printf("%d\n", cnt);
-  }
+  printf("hello\n");
   return 0;
 }
