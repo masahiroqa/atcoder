@@ -32,33 +32,28 @@ typedef unsigned long long ull;
 #define mp make_pair
 #define mt make_tuple
 
-vector<int> a;
+// binary search
+vector<int> a  = {1, 14, 32, 51, 51, 51, 243, 419, 750, 910};
 
-int binary_search(int K){
-  int l = 0;
-  int r = 1e9+1;
-  while(r - l > 1){
-    int cnt = 0;
-    int mid = (r + l) / 2;
-    for(const auto& e: a){
-      if(e > mid){cnt += (e-1) / mid;}
-    }
-    if(cnt <= K){r = mid;}
-    if(cnt > K){l = mid;}
+bool isOK(int index, int key){
+  if(a[index] >= key) return true;
+  else return false;
+}
+
+int binary_search(int key){
+  int left = -1;
+  int right = (int)a.size();
+  while(right - left > 1){
+    int mid = left + (right - left) / 2;
+    if(isOK(mid, key)) right = mid;
+    else left = mid;
   }
   /* left は条件を満たさない最大の値、right は条件を満たす最小の値になっている */
-  return r;
+  return right;
 }
 
 int main(void)
 {
-  int N, K;
-  cin >> N >> K;
-  for(int i=0;i<N;i++){
-    int in;
-    cin >> in;
-    a.push_back(in);
-  }
-  cout << binary_search(K) << endl;
+  cout << binary_search(51) << endl;
   return 0;
 }
