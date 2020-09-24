@@ -48,12 +48,16 @@ struct SparseTable{
     st.assign(b, vector< T >(1 << b));
     for(int i = 0; i < v.size(); i++) {
       st[0][i] = v[i];
+      printf("%d", st[0][i]);
     }
+    printf("\n");
     // それぞれの開始位置(i) から2^k (k = 1 << (i - 1))だけ離れた最小値を記録しておく
     for(int i = 1; i < b; i++) {
       for(int j = 0; j + (1 << i) <= (1 << b); j++) {
         st[i][j] = min(st[i - 1][j], st[i - 1][j + (1 << (i - 1))]);
+        printf("%d(%d,%d) ", st[i][j], i, j + (1 << (i - 1)));
       }
+      printf("\n");
     }
     lookup.resize(v.size() + 1);
     for(int i = 2; i < lookup.size(); i++) { //i番目を満たす最大の2の冪乗
@@ -69,10 +73,16 @@ struct SparseTable{
 
 int main(void)
 {
-  vector< int > lookup(20);
-  for(int i = 2; i < lookup.size(); i++) {
-      lookup[i] = lookup[i >> 1] + 1;
-      printf("%d\n", lookup[i]);
+  int N, Q;
+  scanf("%d", &N);
+  vector< int > vs(N);
+  for(int i = 0; i < N; i++) scanf("%d", &vs[i]);
+  SparseTable< int > table(vs);
+  scanf("%d", &Q);
+  while(Q--) {
+    int x, y;
+    scanf("%d %d", &x, &y);
+    printf("%d\n", table.rmq(x, y + 1));
   }
   return 0;
 }
