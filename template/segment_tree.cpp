@@ -36,12 +36,32 @@ typedef unsigned long long ull;
 //segment tree template
 
 const int INF=1000000000;
-int N,node[400010]; //Nは2のべき乗
-void init(int N_){
-    while(N<N_)N*=2;
-    for(int i=0;i<2*N-1;i++)node[i]=INF;
+const int MAX_N=2097152;
+int n;  // nは2のべき乗
+int dat[MAX_N*2-1];
+
+void init(){
+  for(int i=0;i<2*n-1;i++)dat[i]=INF;
 }
 
+void update(int i, int x){
+  i += n-1;
+  dat[i] = x;
+  while(i>0){
+    i = (i-1) / 2;
+    dat[i] = min(dat[i*2+1], dat[i*2+2]);
+  }
+}
+
+int query(int a, int b, int k, int l, int r){  // [a, b)の最小値 l, rにはノードkに対応づく区間を与える
+  if(r <= a || b <= l) return INF;
+  if(a <= l && r <= b) return dat[k];
+  else{
+    int vl = query(a, b, k*2+1, l, (l+r)/2);
+    int vr = query(a, b, k*2+2, (l+r)/2, r);
+    return min (vl, vr);
+  }
+}
 
 
 int main(void)

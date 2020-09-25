@@ -32,6 +32,14 @@ typedef unsigned long long ull;
 #define mp make_pair
 #define mt make_tuple
 
+#define N 500005
+#define M 998244353
+
+int last[N],sum[N*4],n,q,l[N],r[N],a[N],ans[N];
+
+
+
+
 int main(void)
 {
   int N, Q;
@@ -43,7 +51,7 @@ int main(void)
     c[i] = 1;
     s[N+1][a] += 1;
   }
-  
+
 
 
   return 0;
